@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZ Handcrafted Footwear — Custom Shoes, Made to Fit</title>
+<meta name="description" content="Handcrafted custom shoes for men and women. Comfort, durability, perfect fit — made by hand in Nigeria. Retail & wholesale available.">
+
+<!-- Fonts: Fraunces (display, warm elegant serif) + Inter (body/utility) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,560;0,9..144,650;1,9..144,450&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          ink:      '#15130F',   // deep warm black
+          forest:   '#0F5C2C',   // deep emerald
+          emerald:  '#1A8F3C',   // primary green
+          cream:    '#F7F2E7',   // off-white
+          gold:     '#C9A227',   // soft gold accent
+          leather:  '#8B5A2B',   // leather tan
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F7F2E7; transition: background-color .35s ease, color .35s ease; }
+  html.dark body { background-color: #100F0C; }
+
+  /* ---- Stitch divider: the site's signature motif, echoing hand-stitched leather ---- */
+  .stitch {
+    background-image: repeating-linear-gradient(90deg, #C9A227 0 10px, transparent 10px 20px);
+    height: 2px;
+  }
+  .stitch-v {
+    background-image: repeating-linear-gradient(180deg, #C9A227 0 8px, transparent 8px 16px);
+    width: 2px;
+  }
+
+  /* subtle leather-grain texture overlay for dark sections */
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(201,162,39,0.06) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  .btn-shine { position: relative; overflow: hidden; }
+  .btn-shine::after {
+    content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    transition: left .6s ease;
+  }
+  .btn-shine:hover::after { left: 125%; }
+
+  .card-lift { transition: transform .4s ease, box-shadow .4s ease; }
+  .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(21,19,15,0.25); }
+
+  .num-mark { font-family: 'Fraunces', serif; }
+
+  ::selection { background: #C9A227; color: #15130F; }
+
+  /* mobile menu */
+  #mobileMenu { transform: translateY(-8px); opacity: 0; pointer-events: none; transition: all .25s ease; }
+  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+  .filter-btn.active { background-color: #15130F; color: #F7F2E7; }
+  html.dark .filter-btn.active { background-color: #F7F2E7; color: #15130F; }
+
+  /* theme toggle icon swap */
+  .theme-icon-dark { display: none; }
+  html.dark .theme-icon-light { display: none; }
+  html.dark .theme-icon-dark { display: inline-flex; }
+</style>
+</head>
+
+<body class="font-body text-ink dark:text-cream bg-cream dark:bg-[#100F0C] antialiased">
+
+<!-- ============================= NAVBAR ============================= -->
+<header class="fixed top-0 inset-x-0 z-50 bg-cream/90 dark:bg-[#100F0C]/90 backdrop-blur border-b border-ink/10 dark:border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex items-center justify-between h-[76px]">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2 group">
+        <span id="navLogoWrap" class="flex items-center gap-2 max-w-0 opacity-0 overflow-hidden transition-all duration-500 ease-out">
+          <img src="assets/brand/logo-icon-transparent.png" alt="OZ" class="h-9 md:h-10 w-auto flex-shrink-0">
+          <span class="hidden sm:block h-5 w-px bg-ink/20 dark:bg-cream/20 flex-shrink-0"></span>
+        </span>
+        <span class="hidden sm:block text-[11px] uppercase tracking-[0.18em] font-semibold text-forest dark:text-emerald leading-tight">Handcrafted<br>Footwear</span>
+      </a>
+
+      <!-- Desktop links -->
+      <nav class="hidden lg:flex items-center gap-9 text-[14px] font-medium">
+        <a href="#home" class="hover:text-forest dark:hover:text-emerald transition-colors">Home</a>
+        <a href="#collection" class="hover:text-forest dark:hover:text-emerald transition-colors">Collection</a>
+        <a href="#craft" class="hover:text-forest dark:hover:text-emerald transition-colors">Our Craft</a>
+        <a href="#about" class="hover:text-forest dark:hover:text-emerald transition-colors">About</a>
+        <a href="#contact" class="hover:text-forest dark:hover:text-emerald transition-colors">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Theme toggle -->
+        <button id="themeToggle" aria-label="Toggle light and dark theme"
+                class="w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg class="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+
+        <a href="https://wa.me/2348130494559?text=Hello%20OZ%20Handcrafted%20Footwear%2C%20I%27d%20like%20to%20know%20more%20about%20your%20shoes."
+           target="_blank" rel="noopener"
+           class="btn-shine hidden sm:inline-flex items-center gap-2 bg-emerald hover:bg-forest text-cream text-[13px] font-semibold px-4 py-2.5 rounded-full transition-colors shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.3 1 1-3.3-.2-.3C3.5 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+          WhatsApp
+        </a>
+        <!-- mobile toggle -->
+        <button id="menuBtn" class="lg:hidden p-2 -mr-2" aria-label="Toggle menu">
+          <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="lg:hidden absolute top-full inset-x-0 bg-cream dark:bg-[#100F0C] border-b border-ink/10 dark:border-cream/10 shadow-lg">
+    <nav class="flex flex-col px-6 py-5 gap-4 text-[15px] font-medium">
+      <a href="#home" class="mobile-link py-1">Home</a>
+      <a href="#collection" class="mobile-link py-1">Collection</a>
+      <a href="#craft" class="mobile-link py-1">Our Craft</a>
+      <a href="#about" class="mobile-link py-1">About</a>
+      <a href="#contact" class="mobile-link py-1">Contact</a>
+      <a href="https://wa.me/2348130494559?text=Hello%20OZ%20Handcrafted%20Footwear%2C%20I%27d%20like%20to%20know%20more%20about%20your%20shoes."
+         target="_blank" rel="noopener"
+         class="inline-flex items-center justify-center gap-2 bg-emerald text-cream font-semibold px-4 py-3 rounded-full mt-1">
+        Chat on WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================= HERO ============================= -->
+<section id="home" class="relative pt-[76px] overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 pt-6 sm:pt-8 reveal">
+    <img src="assets/brand/logo-full-transparent.png" alt="OZ Handcrafted Footwear"
+         class="h-24 sm:h-28 w-auto -ml-2">
+  </div>
+
+  <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-2 gap-12 items-center pt-4 pb-16 md:pb-24">
+
+    <div class="reveal">
+      <span class="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] font-semibold text-forest dark:text-emerald bg-emerald/10 px-3 py-1.5 rounded-full">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald"></span> Made by hand in Nigeria
+      </span>
+
+      <h1 class="font-display text-[42px] leading-[1.08] sm:text-[54px] lg:text-[60px] mt-6">
+        Handcrafted for a<br>
+        <span class="italic text-forest dark:text-emerald">Perfect Fit.</span>
+      </h1>
+
+      <div class="stitch w-24 mt-6 mb-6"></div>
+
+      <p class="text-ink/70 dark:text-cream/70 text-[16px] md:text-[17px] leading-relaxed max-w-md">
+        Custom shoes for men and women, cut, stitched and finished by hand —
+        built around your feet, not the other way around. Every pair is made
+        to be worn for years, not seasons.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mt-9">
+        <a href="order.html" class="btn-shine text-center bg-ink hover:bg-forest dark:bg-emerald dark:hover:bg-forest text-cream font-semibold px-7 py-4 rounded-full transition-colors shadow-md">
+          Order Custom Pair
+        </a>
+        <a href="https://wa.me/2348130494559?text=Hi%20OZ%2C%20I%27d%20like%20to%20order%20a%20custom%20pair%20of%20shoes."
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-2 border-2 border-ink/15 dark:border-cream/20 hover:border-emerald hover:text-forest dark:hover:text-emerald font-semibold px-7 py-4 rounded-full transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.3 1 1-3.3-.2-.3C3.5 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+
+      <div class="flex items-center gap-6 mt-10 text-[13px] text-ink/60 dark:text-cream/50">
+        <span>Retail &amp; Wholesale</span>
+        <span class="w-1 h-1 rounded-full bg-ink/30 dark:bg-cream/30"></span>
+        <span>Men &amp; Women</span>
+        <span class="w-1 h-1 rounded-full bg-ink/30 dark:bg-cream/30"></span>
+        <span>Nationwide delivery</span>
+      </div>
+    </div>
+
+    <!-- Hero visual: founder photo on a soft emerald panel -->
+    <div class="reveal relative" style="transition-delay:.1s">
+      <div class="relative rounded-[28px] bg-gradient-to-br from-forest to-emerald aspect-[4/5] max-w-md mx-auto overflow-hidden shadow-2xl">
+        <img src="assets/brand/founder.jpg" alt="Yahya Ruqayyah, Founder of OZ Handcrafted Footwear"
+             class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-90">
+        <div class="absolute inset-0 bg-gradient-to-t from-forest/70 via-transparent to-forest/10"></div>
+        <div class="absolute bottom-6 left-6 right-6 bg-cream/95 backdrop-blur rounded-2xl px-5 py-4 flex items-center justify-between">
+          <div>
+            <p class="font-display text-lg text-ink leading-none">Made to Measure</p>
+            <p class="text-[12px] text-ink/60 mt-1">Every pair, one owner</p>
+          </div>
+          <span class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.4L22 9.3l-5 4.9 1.2 7.1L12 17.8 5.8 21.3 7 14.2 2 9.3l7.1-1L12 2z"/></svg>
+          </span>
+        </div>
+      </div>
+      <!-- floating badge -->
+      <div class="absolute -top-4 -left-4 bg-cream dark:bg-[#1C1A15] border border-ink/10 dark:border-cream/10 rounded-2xl px-4 py-3 shadow-lg hidden sm:block">
+        <p class="text-[11px] uppercase tracking-wider text-ink/50 dark:text-cream/50">Founder</p>
+        <p class="font-display text-[15px] text-ink dark:text-cream">Yahya Ruqayyah</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FEATURED COLLECTION ============================= -->
+<section id="collection" class="py-20 md:py-28 border-t border-ink/10 dark:border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
+      <div>
+        <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Featured Collection</p>
+        <h2 class="font-display text-[34px] md:text-[42px] mt-3">Shoes worth breaking in.</h2>
+      </div>
+      <p class="text-ink/60 dark:text-cream/60 max-w-sm text-[15px]">Every style below can be made exactly to your size, width and preferred leather. Tap a pair to start a custom order.</p>
+    </div>
+
+    <!-- filters -->
+    <div class="flex gap-3 mt-10 reveal">
+      <button data-filter="all" class="filter-btn active px-5 py-2 rounded-full text-[13px] font-semibold border border-ink/15 dark:border-cream/20 transition-colors">All</button>
+      <button data-filter="men" class="filter-btn px-5 py-2 rounded-full text-[13px] font-semibold border border-ink/15 dark:border-cream/20 transition-colors">Men</button>
+      <button data-filter="women" class="filter-btn px-5 py-2 rounded-full text-[13px] font-semibold border border-ink/15 dark:border-cream/20 transition-colors">Women</button>
+    </div>
+
+    <!-- grid -->
+    <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+      <!-- Cards injected by JS from PRODUCTS array -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================= OUR CRAFT ============================= -->
+<section id="craft" class="relative py-20 md:py-28 bg-ink text-cream overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
+
+    <div class="grid lg:grid-cols-2 gap-14 items-start">
+      <div class="reveal">
+        <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Our Craft</p>
+        <h2 class="font-display text-[34px] md:text-[42px] mt-3 leading-tight">A story stitched by hand.</h2>
+        <div class="stitch w-24 mt-6 mb-6"></div>
+        <div class="space-y-4 text-cream/70 leading-relaxed text-[15.5px]">
+          <p>OZ Handmade Shoe started with a simple desire to create something with my own hands that people could be proud to wear.</p>
+          <p>What started as a skill gradually became a brand, and along the way, I discovered that building a business is about much more than making beautiful shoes. It is about patience, consistency, learning, sacrifice, and choosing to keep going even when things don't go as planned.</p>
+          <p>There have been days when materials were unavailable, machines stopped working, and even injuries came from the process of creating. There were moments when the work was exhausting, especially while balancing my regular 9–5 job with making shoes at night. But every challenge taught me something and pushed me to become better at what I do.</p>
+          <p>Behind every pair of OZ shoes is more than leather, suede, skin, palm, a sole, and stitches. There is time, creativity, attention to detail, and a piece of my journey.</p>
+          <p>I have watched OZ grow from an idea into a brand that has reached customers beyond Nigeria, including the UK, US and Côte d'Ivoire. Every order, referral, review, and returning customer reminds me why I started.</p>
+          <p>My goal has never been just to make shoes. I want OZ Handmade Shoe to be a brand people trust for quality, creativity, comfort, and craftsmanship.</p>
+          <p>I am still learning. I am still growing. And I am still creating.</p>
+          <p class="text-cream/90 italic">This is my journey with OZ Handmade Shoe and I believe the best chapters are still being written.</p>
+          <p class="text-cream font-semibold not-italic">— Yahya Ruqayyah, Founder</p>
+        </div>
+      </div>
+
+      <!-- 4-step process -->
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="reveal bg-cream/[0.04] border border-cream/10 rounded-2xl p-6" style="transition-delay:.05s">
+          <span class="num-mark text-4xl text-gold/80">01</span>
+          <h3 class="font-display text-lg mt-3">Consultation &amp; Measurement</h3>
+          <p class="text-cream/60 text-[14px] mt-2 leading-relaxed">We talk through what you need, then measure every dimension of your foot for a true custom fit.</p>
+        </div>
+        <div class="reveal bg-cream/[0.04] border border-cream/10 rounded-2xl p-6" style="transition-delay:.1s">
+          <span class="num-mark text-4xl text-gold/80">02</span>
+          <h3 class="font-display text-lg mt-3">Design &amp; Material Selection</h3>
+          <p class="text-cream/60 text-[14px] mt-2 leading-relaxed">Choose your leather, colour, sole and finishing details — or let us guide you.</p>
+        </div>
+        <div class="reveal bg-cream/[0.04] border border-cream/10 rounded-2xl p-6" style="transition-delay:.15s">
+          <span class="num-mark text-4xl text-gold/80">03</span>
+          <h3 class="font-display text-lg mt-3">Handcrafting</h3>
+          <p class="text-cream/60 text-[14px] mt-2 leading-relaxed">Every pair is cut, stitched and shaped by hand in our workshop — no shortcuts.</p>
+        </div>
+        <div class="reveal bg-cream/[0.04] border border-cream/10 rounded-2xl p-6" style="transition-delay:.2s">
+          <span class="num-mark text-4xl text-gold/80">04</span>
+          <h3 class="font-display text-lg mt-3">Quality Check &amp; Delivery</h3>
+          <p class="text-cream/60 text-[14px] mt-2 leading-relaxed">Every pair is inspected by hand before it's packaged and delivered to your door.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= BEHIND THE SCENES (production video) ============================= -->
+<section id="video" class="py-20 md:py-28 bg-cream dark:bg-[#100F0C] relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 relative text-center reveal">
+    <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Behind The Scenes</p>
+    <h2 class="font-display text-[34px] md:text-[42px] mt-3">Watch how it's made.</h2>
+    <div class="stitch w-24 mx-auto mt-6 mb-10"></div>
+
+    <div class="grid sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
+      <div class="relative rounded-2xl overflow-hidden shadow-xl border border-ink/10 dark:border-cream/10 bg-ink" style="aspect-ratio: 9/16;">
+        <video class="absolute inset-0 w-full h-full object-cover" controls preload="none" poster="assets/video/poster-1.jpg" playsinline>
+          <source src="assets/video/workshop-1.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden shadow-xl border border-ink/10 dark:border-cream/10 bg-ink" style="aspect-ratio: 9/16;">
+        <video class="absolute inset-0 w-full h-full object-cover" controls preload="none" poster="assets/video/poster-2.jpg" playsinline>
+          <source src="assets/video/workshop-2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="relative rounded-2xl overflow-hidden shadow-xl border border-ink/10 dark:border-cream/10 bg-ink" style="aspect-ratio: 9/16;">
+        <video class="absolute inset-0 w-full h-full object-cover" controls preload="none" poster="assets/video/poster-3.jpg" playsinline>
+          <source src="assets/video/workshop-3.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <a href="videos.html" class="inline-flex items-center gap-2 font-semibold text-forest dark:text-emerald hover:text-ink dark:hover:text-cream transition-colors mt-8">
+      View all videos
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <p class="text-ink/50 dark:text-cream/50 text-[13px] mt-6">More from the workshop on <a href="https://instagram.com/oz_handcrafted_footwear" target="_blank" rel="noopener" class="underline hover:text-forest dark:hover:text-emerald">@oz_handcrafted_footwear</a></p>
+  </div>
+</section>
+
+<!-- ============================= WHY CHOOSE OZ ============================= -->
+<section id="about" class="py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center max-w-xl mx-auto reveal">
+      <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Why Choose OZ</p>
+      <h2 class="font-display text-[34px] md:text-[42px] mt-3">Built to be worn, not just bought.</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+
+      <div class="reveal text-center px-4">
+        <div class="w-16 h-16 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center mx-auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 15c0-3 2-5 4-5 2.5 0 3 2 4 2s1.5-2 4-2c2 0 4 2 4 5"/><path d="M3 15h18v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"/></svg>
+        </div>
+        <h3 class="font-display text-lg mt-5">Comfort</h3>
+        <p class="text-ink/60 dark:text-cream/60 text-[14px] mt-2 leading-relaxed">Cushioned, breathable and shaped for how your foot actually moves.</p>
+      </div>
+
+      <div class="reveal text-center px-4" style="transition-delay:.05s">
+        <div class="w-16 h-16 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center mx-auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/></svg>
+        </div>
+        <h3 class="font-display text-lg mt-5">Durability</h3>
+        <p class="text-ink/60 dark:text-cream/60 text-[14px] mt-2 leading-relaxed">Premium leather and quality soles built to withstand daily wear for years.</p>
+      </div>
+
+      <div class="reveal text-center px-4" style="transition-delay:.1s">
+        <div class="w-16 h-16 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center mx-auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+        </div>
+        <h3 class="font-display text-lg mt-5">Perfect Fit</h3>
+        <p class="text-ink/60 dark:text-cream/60 text-[14px] mt-2 leading-relaxed">Measured to your foot, not a generic size chart. No breaking-in required.</p>
+      </div>
+
+      <div class="reveal text-center px-4" style="transition-delay:.15s">
+        <div class="w-16 h-16 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center mx-auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3 class="font-display text-lg mt-5">Custom Made</h3>
+        <p class="text-ink/60 dark:text-cream/60 text-[14px] mt-2 leading-relaxed">Choose your leather, colour and finish — every pair is made to order.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================= REVIEWS (ACTIVE — real customer content) ============================= -->
+<section class="py-20 md:py-28 bg-forest/[0.04] dark:bg-cream/[0.02] border-y border-ink/10 dark:border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center max-w-xl mx-auto reveal">
+      <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Customer Reviews</p>
+      <h2 class="font-display text-[34px] md:text-[42px] mt-3">Worn and loved, pair after pair.</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+
+      <div class="reveal card-lift bg-cream dark:bg-white/[0.04] rounded-2xl overflow-hidden shadow-sm border border-ink/5 dark:border-cream/10">
+        <div class="aspect-[16/10] bg-ink max-h-48"><img src="assets/reviews/review-01.jpg" alt="Customer photo of an OZ handcrafted sandal" class="w-full h-full object-cover"></div>
+        <div class="p-6">
+          <p class="text-ink/80 dark:text-cream/80 text-[14.5px] leading-relaxed italic">"I love it. In Sha Allah, I'll buy more."</p>
+          <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-4">— WhatsApp customer</p>
+        </div>
+      </div>
+
+      <div class="reveal card-lift bg-cream dark:bg-white/[0.04] rounded-2xl overflow-hidden shadow-sm border border-ink/5 dark:border-cream/10" style="transition-delay:.05s">
+        <div class="aspect-[16/10] bg-ink max-h-48"><img src="assets/reviews/review-02.jpg" alt="Customer photo of OZ handcrafted sandals" class="w-full h-full object-cover"></div>
+        <div class="p-6">
+          <p class="text-ink/80 dark:text-cream/80 text-[14.5px] leading-relaxed italic">"Damnn... this is so fine. You really sabi work."</p>
+          <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-4">— WhatsApp customer</p>
+        </div>
+      </div>
+
+      <div class="reveal card-lift bg-cream dark:bg-white/[0.04] rounded-2xl overflow-hidden shadow-sm border border-ink/5 dark:border-cream/10" style="transition-delay:.1s">
+        <div class="aspect-[16/10] bg-ink max-h-48"><img src="assets/reviews/review-03.jpg" alt="Customer photo of OZ handcrafted slides" class="w-full h-full object-cover"></div>
+        <div class="p-6">
+          <p class="text-ink/80 dark:text-cream/80 text-[14.5px] leading-relaxed italic">"Have gotten it. I love it more than the previous one."</p>
+          <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-4">— WhatsApp customer</p>
+        </div>
+      </div>
+
+      <div class="reveal card-lift bg-cream dark:bg-white/[0.04] rounded-2xl overflow-hidden shadow-sm border border-ink/5 dark:border-cream/10" style="transition-delay:.15s">
+        <div class="aspect-[16/10] bg-ink max-h-48"><img src="assets/reviews/review-04.jpg" alt="Customer photo of an OZ handcrafted slide" class="w-full h-full object-cover"></div>
+        <div class="p-6">
+          <p class="text-ink/80 dark:text-cream/80 text-[14.5px] leading-relaxed italic">"Ur job is so clean and it's so lovely, Wallahi. I love it and he loves it too."</p>
+          <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-4">— WhatsApp customer</p>
+        </div>
+      </div>
+
+      <div class="reveal card-lift bg-cream dark:bg-white/[0.04] rounded-2xl overflow-hidden shadow-sm border border-ink/5 dark:border-cream/10" style="transition-delay:.2s">
+        <div class="aspect-[16/10] bg-ink max-h-48"><img src="assets/reviews/review-05.jpg" alt="Customer photo wearing OZ handcrafted sandals" class="w-full h-full object-cover"></div>
+        <div class="p-6">
+          <p class="text-ink/80 dark:text-cream/80 text-[14.5px] leading-relaxed italic">"He loves the shoe and it's sized him so well."</p>
+          <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-4">— WhatsApp customer</p>
+        </div>
+      </div>
+
+      <!-- 6th tile: opens a modal with the rest of the reviews, in-page -->
+      <button type="button" id="viewMoreReviewsBtn"
+         class="reveal card-lift group flex flex-col items-center justify-center text-center gap-3 rounded-2xl border-2 border-dashed border-ink/20 dark:border-cream/25 hover:border-emerald p-8 transition-colors" style="transition-delay:.25s">
+        <span class="w-12 h-12 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center group-hover:bg-emerald group-hover:text-cream transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="font-display text-lg">View More Reviews</span>
+        <span class="text-[13px] text-ink/50 dark:text-cream/50">10+ more customer messages</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= PRODUCT PHOTO GALLERY (multi-angle) ============================= -->
+<div id="galleryModal" class="fixed inset-0 z-[80] hidden">
+  <div id="galleryOverlay" class="absolute inset-0 bg-ink/90 backdrop-blur-sm"></div>
+  <div class="relative h-full flex flex-col items-center justify-center p-4 sm:p-8">
+    <div class="flex items-center justify-between w-full max-w-2xl mb-4 px-1">
+      <div>
+        <h3 id="galleryTitle" class="font-display text-cream text-lg sm:text-xl"></h3>
+        <p id="galleryCounter" class="text-cream/60 text-[13px] mt-0.5"></p>
+      </div>
+      <button id="galleryClose" aria-label="Close" class="w-10 h-10 rounded-full hover:bg-cream/10 flex items-center justify-center text-cream flex-shrink-0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="relative w-full max-w-2xl flex-1 min-h-0 flex items-center justify-center">
+      <button id="galleryPrevBtn" aria-label="Previous photo"
+              class="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center text-cream z-10">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <img id="galleryImg" src="" alt="" class="max-h-[65vh] max-w-full rounded-2xl shadow-2xl object-contain">
+      <button id="galleryNextBtn" aria-label="Next photo"
+              class="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center text-cream z-10">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div id="galleryDots" class="flex items-center gap-2 mt-5"></div>
+  </div>
+</div>
+
+<!-- ============================= REVIEWS MODAL ============================= -->
+<div id="reviewsModal" class="fixed inset-0 z-[70] hidden">
+  <div id="reviewsModalOverlay" class="absolute inset-0 bg-ink/80 backdrop-blur-sm"></div>
+  <div class="relative h-full flex items-end sm:items-center justify-center p-0 sm:p-6">
+    <div class="bg-cream dark:bg-[#1C1A15] w-full sm:max-w-3xl sm:rounded-3xl rounded-t-3xl max-h-[85vh] flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4 border-b border-ink/10 dark:border-cream/10">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] font-semibold text-gold">All Reviews</p>
+          <h3 class="font-display text-2xl mt-1">Every message, unedited.</h3>
+        </div>
+        <button id="reviewsModalClose" aria-label="Close" class="w-10 h-10 rounded-full hover:bg-ink/5 dark:hover:bg-cream/5 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="overflow-y-auto px-6 md:px-8 py-6 space-y-4">
+        <!-- Photo-backed reviews already shown above, included here too for a complete list -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Thank you so much mama. I love it."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Awwwn, I love u so much and I appreciate you. Thanks for not letting me down, and for not disappointing me even though the order came late. I love how dedicated and honest you are."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"I love my shoes, thanks a lot. My sister wants some too."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Yes, the design looks great, and it's lightweight and flexible."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Yes love, it's nice. Thank you."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"I need to frame this... you really try."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— Bros Dahiru</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Thanks for the referral. He loves his shoe."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"The shoe is so fine, I didn't know it would look this good. People just dey look my leg."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"I have received it. It's so beautiful, may Allah bless your hand work."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"He loves the shoe and it's sized him so well."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"Thank you very much. The shoes are very beautiful, I love them."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+          <div class="bg-white dark:bg-white/5 rounded-xl border border-ink/5 dark:border-cream/10 p-5">
+            <p class="text-ink/80 dark:text-cream/80 text-[14px] leading-relaxed italic">"The shoe is so fine like I never knew it would look this good — will place another order soon."</p>
+            <p class="text-[12px] text-ink/50 dark:text-cream/50 mt-3">— WhatsApp customer</p>
+          </div>
+        </div>
+      </div>
+      <div class="px-6 md:px-8 py-5 border-t border-ink/10 dark:border-cream/10">
+        <a href="https://wa.me/2348130494559?text=Hi%20OZ%2C%20I%27d%20like%20to%20order%20a%20custom%20pair%20of%20shoes."
+           target="_blank" rel="noopener"
+           class="btn-shine w-full inline-flex items-center justify-center gap-2 bg-emerald hover:bg-forest text-cream font-semibold px-6 py-3.5 rounded-full transition-colors">
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= WHOLESALE & CUSTOM ORDERS ============================= -->
+<section id="contact" class="relative py-20 md:py-28 bg-gradient-to-br from-forest to-emerald text-cream overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="max-w-4xl mx-auto px-5 md:px-8 text-center relative reveal">
+    <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Wholesale &amp; Custom Orders</p>
+    <h2 class="font-display text-[32px] md:text-[44px] mt-4 leading-tight">
+      Buying in bulk, or building your own pair?<br class="hidden md:block"> We'd love to make it with you.
+    </h2>
+    <p class="text-cream/80 mt-6 max-w-xl mx-auto text-[15.5px] leading-relaxed">
+      Boutiques, retailers and stockists get wholesale pricing and consistent
+      craftsmanship at scale. Individuals get a pair measured and made just for
+      them. Either way, it starts with one message.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+      <a href="order.html"
+         class="btn-shine bg-cream text-ink font-semibold px-7 py-4 rounded-full hover:bg-white transition-colors shadow-md">
+        Start a Custom Order
+      </a>
+      <a href="https://wa.me/2348130494559?text=Hello%20OZ%2C%20I%27m%20interested%20in%20wholesale%20pricing."
+         target="_blank" rel="noopener"
+         class="inline-flex items-center justify-center gap-2 border-2 border-cream/40 hover:border-cream font-semibold px-7 py-4 rounded-full transition-colors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.3 1 1-3.3-.2-.3C3.5 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+        Wholesale Enquiry
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="bg-ink text-cream pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="grid md:grid-cols-3 gap-10 pb-12 border-b border-cream/10">
+      <div>
+        <img src="assets/brand/logo-full-transparent.png" alt="OZ Handcrafted Footwear" class="h-20 w-auto">
+        <p class="text-cream/60 text-[14px] mt-3 leading-relaxed max-w-xs">
+          Handcrafted custom footwear for men and women — comfort, durability
+          and a perfect fit, made by hand.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold mb-4">Contact</p>
+        <ul class="space-y-3 text-[14px] text-cream/70">
+          <li>
+            <a href="https://wa.me/2348130494559" target="_blank" rel="noopener" class="hover:text-cream transition-colors">
+              WhatsApp: +234 813 049 4559
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/oz_handcrafted_footwear" target="_blank" rel="noopener" class="hover:text-cream transition-colors">
+              Instagram: @oz_handcrafted_footwear
+            </a>
+          </li>
+          <li>Founder: Yahya Ruqayyah</li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold mb-4">Explore</p>
+        <ul class="space-y-3 text-[14px] text-cream/70">
+          <li><a href="#collection" class="hover:text-cream transition-colors">Collection</a></li>
+          <li><a href="#craft" class="hover:text-cream transition-colors">Our Craft</a></li>
+          <li><a href="#video" class="hover:text-cream transition-colors">Behind The Scenes</a></li>
+          <li><a href="videos.html" class="hover:text-cream transition-colors">All Videos</a></li>
+          <li><a href="#about" class="hover:text-cream transition-colors">Why Choose OZ</a></li>
+          <li><a href="order.html" class="hover:text-cream transition-colors">Custom Order</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[13px] text-cream/50">
+      <p>&copy; <span id="year"></span> OZ Handcrafted Footwear. All rights reserved.</p>
+      <p>Handcrafted with care in Nigeria.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================= SCRIPT ============================= -->
+<script>
+  // Prevent the browser from restoring a previous scroll position or
+  // jumping to a stale URL fragment when the page (re)loads — always
+  // start at the top.
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  // ---- Product data ----
+  const PRODUCTS = [
+    {
+      id: "suede-cross-slide",
+      name: "The Suede Cross Slide",
+      cat: "men",
+      price: "₦35,000 – ₦40,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Mustard Suede / Rust Brown Suede",
+      blurb: "Double sole with a leather-wrapped base and a full suede upper.",
+      images: ["assets/products/p1-1.jpg", "assets/products/p1-2.jpg", "assets/products/p1-3.jpg", "assets/products/p1-4.jpg"],
+    },
+    {
+      id: "grey-double-sole-slide",
+      name: "Grey Slide on Double Sole",
+      cat: "men",
+      price: "₦25,000 – ₦30,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Grey",
+      blurb: "Adjustable double-strap buckle slide on a black double sole.",
+      images: ["assets/products/p2-1.jpg"],
+    },
+    {
+      id: "buckle-cross-slide",
+      name: "The Buckle Cross Slide",
+      cat: "men",
+      price: "₦25,000 – ₦30,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Black",
+      blurb: "Cross-strap leather slide with a side buckle, on a double sole.",
+      images: ["assets/products/p3-1.jpg", "assets/products/p3-2.jpg"],
+    },
+    {
+      id: "grey-thong-slide",
+      name: "The Grey Thong Slide",
+      cat: "men",
+      price: "₦35,000 – ₦40,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Grey",
+      blurb: "Double crafted sole — the floor is wrapped in white leather, the top made with grey leather.",
+      images: ["assets/products/p4-1.jpg", "assets/products/p4-2.jpg"],
+    },
+    {
+      id: "oxblood-cross-slide",
+      name: "The Oxblood Cross Slide",
+      cat: "unisex",
+      price: "₦20,000 – ₦25,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Oxblood",
+      blurb: "Oxblood leather cross slide, made with a foreign sole.",
+      images: ["assets/products/p5-1.jpg", "assets/products/p5-2.jpg"],
+    },
+    {
+      id: "female-slide",
+      name: "Female Slide",
+      cat: "women",
+      price: "₦16,500",
+      priceNote: "",
+      tag: "New",
+      type: "sandal",
+      colours: "Fuchsia",
+      blurb: "Textured fuchsia slide with a statement buckle and pink footbed.",
+      images: ["assets/products/p6-1.jpg"],
+    },
+    {
+      id: "black-bold-loafer",
+      name: "The Black Bold Loafer",
+      cat: "men",
+      price: "₦45,000 – ₦55,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "loafer",
+      colours: "Black",
+      blurb: "Woven-panel loafer finished with a silver horsebit buckle.",
+      images: ["assets/products/p7-1.jpg"],
+    },
+    {
+      id: "double-sole-slippers",
+      name: "Double-Sole Slippers",
+      cat: "unisex",
+      price: "₦25,000 – ₦30,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Navy",
+      blurb: "Navy leather thong slide with a knot detail, on a double sole.",
+      images: ["assets/products/p8-1.jpg"],
+    },
+    {
+      id: "floral-slippers",
+      name: "Floral Slippers",
+      cat: "women",
+      price: "₦16,500",
+      priceNote: "",
+      tag: "New",
+      type: "sandal",
+      colours: "Pink Floral",
+      blurb: "Pink floral-print thong slide.",
+      images: ["assets/products/p9-1.jpg"],
+    },
+    {
+      id: "male-slide-foreign-sole",
+      name: "Male Slide on Foreign Sole",
+      cat: "men",
+      price: "₦20,000 – ₦25,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Black",
+      blurb: "Overlap-strap leather slide with buckle, on a foreign sole.",
+      images: ["assets/products/p10-1.jpg"],
+    },
+    {
+      id: "combo-slide-double-sole",
+      name: "Combo Slide on Double Sole",
+      cat: "unisex",
+      price: "₦25,000 – ₦30,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Black & Brown",
+      blurb: "Two-tone combo buckle slide, on a double sole.",
+      images: ["assets/products/p11-1.jpg"],
+    },
+    {
+      id: "female-slippers",
+      name: "Female Slippers",
+      cat: "women",
+      price: "₦15,000",
+      priceNote: "",
+      tag: "New",
+      type: "sandal",
+      colours: "Black",
+      blurb: "Black thong slide with a gold horsebit buckle, woven-pattern sole.",
+      images: ["assets/products/p12-1.jpg"],
+    },
+    {
+      id: "double-sole-slide-detention",
+      name: "Double Sole Slide Detention",
+      cat: "men",
+      price: "₦25,000 – ₦30,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "sandal",
+      colours: "Black",
+      blurb: "Black slide with a gold emblem detail, on a double sole.",
+      images: ["assets/products/p13-1.jpg"],
+    },
+    {
+      id: "chunky-sole-derby",
+      name: "Black cover shoes with a double-crafted sole",
+      cat: "men",
+      price: "₦50,000 – ₦55,000",
+      priceNote: "depending on size",
+      tag: "New",
+      type: "derby",
+      colours: "Black",
+      blurb: "Black lace-up derby with a double-crafted chunky sole.",
+      images: ["assets/products/p14-1.jpg"],
+    },
+  ];
+
+  function renderProducts(filter) {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+    PRODUCTS.filter(p => filter === 'all' || p.cat === filter || p.cat === 'unisex').forEach((p, i) => {
+      const orderUrl = `order.html?product=${encodeURIComponent(p.name)}&type=${p.type}&gender=${p.cat}&colour=${encodeURIComponent(p.colours)}`;
+      const genderLabel = p.cat === 'men' ? 'Men' : p.cat === 'women' ? 'Women' : 'Unisex';
+      const card = document.createElement('div');
+      card.className = 'reveal card-lift bg-white dark:bg-white/[0.04] rounded-2xl overflow-hidden border border-ink/5 dark:border-cream/10 shadow-sm';
+      card.style.transitionDelay = (i * 0.04) + 's';
+      card.innerHTML = `
+        <button type="button" data-gallery-id="${p.id}"
+                class="product-photo-trigger relative block w-full aspect-[4/3] bg-ink overflow-hidden group">
+          <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute top-3 left-3 text-[10px] uppercase tracking-wider font-semibold bg-cream/90 text-ink px-2.5 py-1 rounded-full">${p.tag}</span>
+          <span class="absolute top-3 right-3 text-[10px] uppercase tracking-wider font-semibold bg-ink/60 text-cream px-2.5 py-1 rounded-full">${genderLabel}</span>
+          ${p.images.length > 1 ? `
+            <span class="absolute bottom-3 right-3 inline-flex items-center gap-1 text-[11px] font-semibold bg-ink/70 text-cream px-2.5 py-1 rounded-full">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              ${p.images.length} photos
+            </span>` : ``}
+        </button>
+        <div class="p-5">
+          <h3 class="font-display text-[17px] leading-snug">${p.name}</h3>
+          <p class="text-ink/50 dark:text-cream/50 text-[12.5px] mt-1">${p.colours}</p>
+          <p class="text-forest dark:text-emerald font-semibold mt-2 text-[15px]">${p.price}${p.priceNote ? `<span class="text-ink/40 dark:text-cream/40 font-normal text-[12px]"> · ${p.priceNote}</span>` : ``}</p>
+          <a href="${orderUrl}"
+             class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-ink hover:bg-forest dark:bg-cream dark:text-ink dark:hover:bg-gold text-cream text-[13px] font-semibold px-4 py-2.5 rounded-full transition-colors">
+            Order
+          </a>
+        </div>`;
+      grid.appendChild(card);
+    });
+    document.querySelectorAll('.product-photo-trigger').forEach(btn => {
+      btn.addEventListener('click', () => openGallery(btn.dataset.galleryId));
+    });
+    observeReveals();
+  }
+
+  // filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(btn.dataset.filter);
+    });
+  });
+
+  // ---- Product photo gallery (multi-angle lightbox) ----
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryImg = document.getElementById('galleryImg');
+  const galleryCounter = document.getElementById('galleryCounter');
+  const galleryTitle = document.getElementById('galleryTitle');
+  const galleryDots = document.getElementById('galleryDots');
+  let galleryImages = [];
+  let galleryIndex = 0;
+
+  function renderGalleryFrame() {
+    galleryImg.src = galleryImages[galleryIndex];
+    galleryCounter.textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
+    galleryDots.innerHTML = galleryImages.map((_, i) =>
+      `<button data-i="${i}" class="w-2 h-2 rounded-full transition-colors ${i === galleryIndex ? 'bg-cream' : 'bg-cream/30'}"></button>`
+    ).join('');
+    galleryDots.querySelectorAll('button').forEach(dot => {
+      dot.addEventListener('click', () => { galleryIndex = parseInt(dot.dataset.i, 10); renderGalleryFrame(); });
+    });
+  }
+
+  function openGallery(productId) {
+    const p = PRODUCTS.find(x => x.id === productId);
+    if (!p) return;
+    galleryImages = p.images;
+    galleryIndex = 0;
+    galleryTitle.textContent = p.name;
+    renderGalleryFrame();
+    galleryModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGallery() {
+    galleryModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  function galleryNext() { galleryIndex = (galleryIndex + 1) % galleryImages.length; renderGalleryFrame(); }
+  function galleryPrev() { galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length; renderGalleryFrame(); }
+
+  document.getElementById('galleryClose').addEventListener('click', closeGallery);
+  document.getElementById('galleryOverlay').addEventListener('click', closeGallery);
+  document.getElementById('galleryNextBtn').addEventListener('click', galleryNext);
+  document.getElementById('galleryPrevBtn').addEventListener('click', galleryPrev);
+  document.addEventListener('keydown', (e) => {
+    if (galleryModal.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowRight') galleryNext();
+    if (e.key === 'ArrowLeft') galleryPrev();
+  });
+
+  // theme toggle (defaults to system preference; no persistence used)
+  const root = document.documentElement;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.classList.add('dark');
+  }
+  document.getElementById('themeToggle').addEventListener('click', () => root.classList.toggle('dark'));
+
+  // Nav logo "fold-in": the OZ icon stays hidden in the navbar until the
+  // person scrolls past the large hero logo, then it fades/expands into
+  // place next to "Handcrafted Footwear". Scrolling back to the top hides
+  // it again, so only the hero logo is visible at first.
+  const navLogoWrap = document.getElementById('navLogoWrap');
+  const FOLD_THRESHOLD = 220;
+  function updateNavLogo() {
+    if (window.scrollY > FOLD_THRESHOLD) {
+      navLogoWrap.classList.remove('max-w-0', 'opacity-0');
+      navLogoWrap.classList.add('max-w-[140px]', 'opacity-100');
+    } else {
+      navLogoWrap.classList.add('max-w-0', 'opacity-0');
+      navLogoWrap.classList.remove('max-w-[140px]', 'opacity-100');
+    }
+  }
+  window.addEventListener('scroll', updateNavLogo, { passive: true });
+  updateNavLogo();
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // reviews modal ("View More Reviews")
+  const reviewsModal = document.getElementById('reviewsModal');
+  const openModal = () => { reviewsModal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; };
+  const closeModal = () => { reviewsModal.classList.add('hidden'); document.body.style.overflow = ''; };
+  document.getElementById('viewMoreReviewsBtn').addEventListener('click', openModal);
+  document.getElementById('reviewsModalClose').addEventListener('click', closeModal);
+  document.getElementById('reviewsModalOverlay').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  // scroll reveal
+  function observeReveals() {
+    const els = document.querySelectorAll('.reveal:not(.in)');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  renderProducts('all');
+  observeReveals();
+</script>
+</body>
+</html>
