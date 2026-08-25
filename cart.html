@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart — OZ Handcrafted Footwear</title>
+<meta name="description" content="Review your selected pairs and send your order to OZ Handcrafted Footwear on WhatsApp.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,560;0,9..144,650;1,9..144,450&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/brand/favicon.png" type="image/png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: { ink: '#15130F', forest: '#0F5C2C', emerald: '#1A8F3C', cream: '#F7F2E7', gold: '#C9A227', leather: '#8B5A2B' },
+        fontFamily: { display: ['Fraunces', 'serif'], body: ['Inter', 'sans-serif'] },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F7F2E7; transition: background-color .35s ease, color .35s ease; }
+  html.dark body { background-color: #100F0C; }
+  .stitch { background-image: repeating-linear-gradient(90deg, #C9A227 0 10px, transparent 10px 20px); height: 2px; }
+  .grain::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(201,162,39,0.06) 1px, transparent 1px); background-size: 4px 4px; pointer-events: none; }
+  .btn-shine { position: relative; overflow: hidden; }
+  .btn-shine::after { content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); transition: left .6s ease; }
+  .btn-shine:hover::after { left: 125%; }
+  #mobileMenu { transform: translateY(-8px); opacity: 0; pointer-events: none; transition: all .25s ease; }
+  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .theme-icon-dark { display: none; }
+  html.dark .theme-icon-light { display: none; }
+  html.dark .theme-icon-dark { display: inline-flex; }
+</style>
+</head>
+
+<body class="font-body text-ink dark:text-cream bg-cream dark:bg-[#100F0C] antialiased">
+
+<!-- ============================= NAVBAR ============================= -->
+<header class="fixed top-0 inset-x-0 z-50 bg-cream/90 dark:bg-[#100F0C]/90 backdrop-blur border-b border-ink/10 dark:border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex items-center justify-between h-[76px]">
+      <a href="index.html" class="flex items-center gap-2 group">
+        <img src="assets/brand/logo-icon-transparent.png" alt="OZ" class="h-10 md:h-12 w-auto">
+        <span class="hidden sm:block h-5 w-px bg-ink/20 dark:bg-cream/20"></span>
+        <span class="hidden sm:block text-[11px] uppercase tracking-[0.18em] font-semibold text-forest dark:text-emerald leading-tight">Handcrafted<br>Footwear</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-9 text-[14px] font-medium">
+        <a href="index.html" class="hover:text-forest dark:hover:text-emerald transition-colors">Home</a>
+        <a href="index.html#collection" class="hover:text-forest dark:hover:text-emerald transition-colors">Collection</a>
+        <a href="index.html#craft" class="hover:text-forest dark:hover:text-emerald transition-colors">Our Craft</a>
+        <a href="videos.html" class="hover:text-forest dark:hover:text-emerald transition-colors">Videos</a>
+        <a href="faq.html" class="hover:text-forest dark:hover:text-emerald transition-colors">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="saved.html" aria-label="Saved items" class="relative w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          <span data-wishlist-count class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-ink text-[9px] font-bold flex items-center justify-center">0</span>
+        </a>
+        <a href="cart.html" aria-label="Cart" class="relative w-10 h-10 rounded-full border-2 border-emerald flex items-center justify-center text-forest dark:text-emerald">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span data-cart-count class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald text-cream text-[9px] font-bold flex items-center justify-center">0</span>
+        </a>
+        <button id="themeToggle" aria-label="Toggle light and dark theme" class="w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg class="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+        <button id="menuBtn" class="lg:hidden p-2 -mr-2" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobileMenu" class="lg:hidden absolute top-full inset-x-0 bg-cream dark:bg-[#100F0C] border-b border-ink/10 dark:border-cream/10 shadow-lg">
+    <nav class="flex flex-col px-6 py-5 gap-4 text-[15px] font-medium">
+      <a href="index.html" class="mobile-link py-1">Home</a>
+      <a href="index.html#collection" class="mobile-link py-1">Collection</a>
+      <a href="index.html#craft" class="mobile-link py-1">Our Craft</a>
+      <a href="videos.html" class="mobile-link py-1">Videos</a>
+      <a href="faq.html" class="mobile-link py-1">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================= PAGE HEADER ============================= -->
+<section class="pt-[76px] bg-ink text-cream relative overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="max-w-5xl mx-auto px-5 md:px-8 py-12 md:py-16 relative">
+    <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Your Cart</p>
+    <h1 class="font-display text-[30px] md:text-[40px] mt-3">Ready to order?</h1>
+    <div class="stitch w-20 mt-5"></div>
+  </div>
+</section>
+
+<!-- ============================= CART ============================= -->
+<section class="py-12 md:py-16">
+  <div class="max-w-5xl mx-auto px-5 md:px-8">
+
+    <div id="cartItems" class="space-y-4"></div>
+
+    <div id="cartEmpty" class="hidden text-center py-20">
+      <div class="w-16 h-16 rounded-full bg-emerald/10 text-forest dark:text-emerald flex items-center justify-center mx-auto">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </div>
+      <h2 class="font-display text-2xl mt-6">Your cart is empty.</h2>
+      <p class="text-ink/60 dark:text-cream/60 mt-2 max-w-sm mx-auto text-[14.5px]">Browse the collection and add a pair you like — it'll show up here.</p>
+      <a href="index.html#collection" class="inline-flex mt-8 bg-ink dark:bg-emerald hover:bg-forest text-cream font-semibold px-6 py-3 rounded-full transition-colors text-[14px]">Browse Collection</a>
+    </div>
+
+    <div id="cartSummary" class="hidden mt-10 bg-ink text-cream rounded-3xl p-7">
+      <div class="flex justify-between items-center text-[15px] mb-2">
+        <span class="text-cream/60">Items in cart</span>
+        <span id="summaryCount" class="font-semibold">0</span>
+      </div>
+      <p class="text-cream/50 text-[12.5px] leading-relaxed mb-6">
+        Final pricing depends on size and any customisation — we'll confirm the total with you on WhatsApp before anything is made.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[13px] font-semibold mb-2">Full name</label>
+          <input id="custName" type="text" placeholder="Your name" class="w-full bg-white/10 border border-cream/20 rounded-xl px-4 py-3 text-[14px] text-cream placeholder-cream/40 focus:outline-none focus:ring-2 focus:ring-emerald">
+        </div>
+        <div>
+          <label class="block text-[13px] font-semibold mb-2">Phone / WhatsApp number</label>
+          <input id="custPhone" type="tel" placeholder="e.g. 0813 XXX XXXX" class="w-full bg-white/10 border border-cream/20 rounded-xl px-4 py-3 text-[14px] text-cream placeholder-cream/40 focus:outline-none focus:ring-2 focus:ring-emerald">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-[13px] font-semibold mb-2">Delivery location</label>
+          <input id="custLocation" type="text" placeholder="City / State, or country if outside Nigeria" class="w-full bg-white/10 border border-cream/20 rounded-xl px-4 py-3 text-[14px] text-cream placeholder-cream/40 focus:outline-none focus:ring-2 focus:ring-emerald">
+        </div>
+      </div>
+      <button id="sendOrderBtn" class="btn-shine w-full inline-flex items-center justify-center gap-2 bg-emerald hover:bg-forest text-cream font-semibold px-8 py-4 rounded-full transition-colors shadow-md mt-6">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.3 1 1-3.3-.2-.3C3.5 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+        Send Full Order on WhatsApp
+      </button>
+      <button id="clearCartBtn" class="w-full text-center text-cream/50 hover:text-cream text-[13px] mt-4 transition-colors">Clear cart</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="bg-ink text-cream pt-16 pb-8 border-t border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-cream/50">
+      <p>&copy; <span id="year"></span> OZ Handcrafted Footwear. All rights reserved.</p>
+      <a href="https://wa.me/2348130494559" target="_blank" rel="noopener" class="hover:text-cream transition-colors">+234 813 049 4559</a>
+    </div>
+  </div>
+</footer>
+
+<script>const ASSET_BASE = "";</script>
+<script src="assets/js/store.js"></script>
+<script>
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  const root = document.documentElement;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { root.classList.add('dark'); }
+  document.getElementById('themeToggle').addEventListener('click', () => root.classList.toggle('dark'));
+
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function renderCart() {
+    const cart = ozGetCart();
+    const wrap = document.getElementById('cartItems');
+    const empty = document.getElementById('cartEmpty');
+    const summary = document.getElementById('cartSummary');
+    wrap.innerHTML = '';
+
+    if (cart.length === 0) {
+      empty.classList.remove('hidden');
+      summary.classList.add('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    summary.classList.remove('hidden');
+
+    cart.forEach((item, i) => {
+      const p = ozFindProduct(item.id);
+      if (!p) return;
+      const row = document.createElement('div');
+      row.className = 'flex gap-4 bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-2xl p-4';
+      row.innerHTML = `
+        <a href="${ozProductUrl(p)}" class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-xl overflow-hidden bg-ink">
+          <img src="${ozProductImg(p)}" alt="${p.name}" class="w-full h-full object-cover">
+        </a>
+        <div class="flex-1 min-w-0">
+          <a href="${ozProductUrl(p)}" class="font-display text-[16px] hover:text-forest dark:hover:text-emerald transition-colors line-clamp-1">${p.name}</a>
+          <p class="text-[12.5px] text-ink/50 dark:text-cream/50 mt-1">${item.colour} · Size ${item.size || 'TBC'}</p>
+          <p class="text-forest dark:text-emerald font-semibold text-[14px] mt-1">${ozNaira(p.priceMin)}${p.priceMax !== p.priceMin ? ' – ' + ozNaira(p.priceMax) : ''}</p>
+          <div class="flex items-center gap-3 mt-3">
+            <div class="inline-flex items-center border border-ink/15 dark:border-cream/20 rounded-full overflow-hidden">
+              <button data-action="dec" data-i="${i}" class="w-8 h-8 flex items-center justify-center hover:bg-ink/5 dark:hover:bg-cream/5">−</button>
+              <span class="w-8 text-center text-[13px] font-semibold">${item.qty}</span>
+              <button data-action="inc" data-i="${i}" class="w-8 h-8 flex items-center justify-center hover:bg-ink/5 dark:hover:bg-cream/5">+</button>
+            </div>
+            <button data-action="remove" data-i="${i}" class="text-[12.5px] text-ink/40 dark:text-cream/40 hover:text-red-500 transition-colors">Remove</button>
+          </div>
+        </div>`;
+      wrap.appendChild(row);
+    });
+
+    document.getElementById('summaryCount').textContent = ozCartCount();
+
+    wrap.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.i, 10);
+        const action = btn.dataset.action;
+        const cart = ozGetCart();
+        if (action === 'inc') ozUpdateCartQty(i, cart[i].qty + 1);
+        if (action === 'dec') ozUpdateCartQty(i, cart[i].qty - 1);
+        if (action === 'remove') ozRemoveFromCart(i);
+        renderCart();
+      });
+    });
+  }
+
+  document.getElementById('clearCartBtn').addEventListener('click', () => {
+    if (confirm('Remove everything from your cart?')) { ozClearCart(); renderCart(); }
+  });
+
+  document.getElementById('sendOrderBtn').addEventListener('click', () => {
+    const cart = ozGetCart();
+    if (cart.length === 0) return;
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const location = document.getElementById('custLocation').value || 'Not specified';
+
+    if (!name || !phone) {
+      alert('Please add your name and phone number so we can reach you.');
+      return;
+    }
+
+    const lines = [`Hello OZ, I'd like to place the following order:`, ''];
+    cart.forEach((item, i) => {
+      const p = ozFindProduct(item.id);
+      if (!p) return;
+      lines.push(`${i + 1}. ${p.name} — ${item.colour}, Size ${item.size || 'TBC'}, Qty ${item.qty}`);
+    });
+    lines.push('', `Name: ${name}`, `Phone: ${phone}`, `Delivery location: ${location}`);
+
+    const text = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+  });
+
+  renderCart();
+</script>
+</body>
+</html>

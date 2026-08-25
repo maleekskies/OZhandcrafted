@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ & Shipping — OZ Handcrafted Footwear</title>
+<meta name="description" content="Everything about ordering, sizing, shipping, delivery and care for your OZ Handcrafted Footwear pair.">
+<link rel="icon" href="assets/brand/favicon.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,560;0,9..144,650;1,9..144,450&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: { ink: '#15130F', forest: '#0F5C2C', emerald: '#1A8F3C', cream: '#F7F2E7', gold: '#C9A227', leather: '#8B5A2B' },
+        fontFamily: { display: ['Fraunces', 'serif'], body: ['Inter', 'sans-serif'] },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F7F2E7; transition: background-color .35s ease, color .35s ease; }
+  html.dark body { background-color: #100F0C; }
+  .stitch { background-image: repeating-linear-gradient(90deg, #C9A227 0 10px, transparent 10px 20px); height: 2px; }
+  .grain::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(201,162,39,0.06) 1px, transparent 1px); background-size: 4px 4px; pointer-events: none; }
+  #mobileMenu { transform: translateY(-8px); opacity: 0; pointer-events: none; transition: all .25s ease; }
+  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .theme-icon-dark { display: none; }
+  html.dark .theme-icon-light { display: none; }
+  html.dark .theme-icon-dark { display: inline-flex; }
+  .faq-item[open] summary .chev { transform: rotate(180deg); }
+  summary { cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+</style>
+</head>
+
+<body class="font-body text-ink dark:text-cream bg-cream dark:bg-[#100F0C] antialiased">
+
+<!-- ============================= NAVBAR ============================= -->
+<header class="fixed top-0 inset-x-0 z-50 bg-cream/90 dark:bg-[#100F0C]/90 backdrop-blur border-b border-ink/10 dark:border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex items-center justify-between h-[76px]">
+      <a href="index.html" class="flex items-center gap-2 group">
+        <img src="assets/brand/logo-icon-transparent.png" alt="OZ" class="h-10 md:h-12 w-auto">
+        <span class="hidden sm:block h-5 w-px bg-ink/20 dark:bg-cream/20"></span>
+        <span class="hidden sm:block text-[11px] uppercase tracking-[0.18em] font-semibold text-forest dark:text-emerald leading-tight">Handcrafted<br>Footwear</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-9 text-[14px] font-medium">
+        <a href="index.html" class="hover:text-forest dark:hover:text-emerald transition-colors">Home</a>
+        <a href="index.html#collection" class="hover:text-forest dark:hover:text-emerald transition-colors">Collection</a>
+        <a href="size-guide.html" class="hover:text-forest dark:hover:text-emerald transition-colors">Size Guide</a>
+        <a href="faq.html" class="text-forest dark:text-emerald">FAQ</a>
+        <a href="index.html#contact" class="hover:text-forest dark:hover:text-emerald transition-colors">Contact</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="saved.html" aria-label="Saved items" class="relative w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          <span data-wishlist-count class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-ink text-[9px] font-bold flex items-center justify-center">0</span>
+        </a>
+        <a href="cart.html" aria-label="Cart" class="relative w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span data-cart-count class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald text-cream text-[9px] font-bold flex items-center justify-center">0</span>
+        </a>
+        <button id="themeToggle" aria-label="Toggle light and dark theme" class="w-10 h-10 rounded-full border border-ink/15 dark:border-cream/20 flex items-center justify-center hover:border-emerald transition-colors">
+          <svg class="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+        <button id="menuBtn" class="lg:hidden p-2 -mr-2" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobileMenu" class="lg:hidden absolute top-full inset-x-0 bg-cream dark:bg-[#100F0C] border-b border-ink/10 dark:border-cream/10 shadow-lg">
+    <nav class="flex flex-col px-6 py-5 gap-4 text-[15px] font-medium">
+      <a href="index.html" class="mobile-link py-1">Home</a>
+      <a href="index.html#collection" class="mobile-link py-1">Collection</a>
+      <a href="size-guide.html" class="mobile-link py-1">Size Guide</a>
+      <a href="faq.html" class="mobile-link py-1">FAQ</a>
+      <a href="index.html#contact" class="mobile-link py-1">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================= PAGE HEADER ============================= -->
+<section class="pt-[76px] bg-ink text-cream relative overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="max-w-4xl mx-auto px-5 md:px-8 py-14 md:py-20 relative">
+    <p class="text-[12px] uppercase tracking-[0.2em] font-semibold text-gold">Help</p>
+    <h1 class="font-display text-[32px] md:text-[44px] mt-3 leading-tight">Ordering, shipping & care.</h1>
+    <div class="stitch w-20 mt-6"></div>
+  </div>
+</section>
+
+<!-- ============================= FAQ ============================= -->
+<section class="py-14 md:py-20">
+  <div class="max-w-3xl mx-auto px-5 md:px-8 space-y-10">
+
+    <div>
+      <h2 class="font-display text-2xl mb-4 text-forest dark:text-emerald">Ordering</h2>
+      <div class="space-y-3">
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">How do I place an order?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Pick a pair from the Collection, choose your colour and size on the product page, then either send it straight to WhatsApp or add it to your cart to order several pairs at once. Everything gets confirmed with you directly on WhatsApp before we start making.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">Is this a real checkout / do I pay on this site?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">No — the cart and order forms just put together a clear summary of what you want and send it to us on WhatsApp. Payment, final pricing and delivery are all confirmed directly with you there.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">How long does production take?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Every pair is handmade to order, and production typically takes 5–7 working days before it's ready for delivery. Express/urgent orders may be possible for an extra charge — just ask on WhatsApp.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">Do you do wholesale?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Yes — boutiques, retailers and stockists get wholesale pricing on bulk orders. Note that one or two pairs doesn't qualify as wholesale. Reach out on WhatsApp to discuss quantities and pricing.</p>
+        </details>
+
+      </div>
+    </div>
+
+    <div>
+      <h2 class="font-display text-2xl mb-4 text-forest dark:text-emerald">Shipping & Delivery</h2>
+      <div class="space-y-3">
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">Where do you deliver?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">We're based in Abuja and deliver nationwide within Nigeria — distance is not a barrier. Within Abuja, delivery is via dispatch rider or park driver. Outside Abuja, we ship via park/logistics service to your nearest terminal.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">Do you ship outside Nigeria?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Yes — OZ has shipped to customers in the UK, US and Côte d'Ivoire. International shipping cost and timeline are quoted individually based on your location, so please confirm on WhatsApp before ordering.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">When are deliveries made?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Deliveries are mainly done on weekends. Urgent/same-day deliveries may attract extra charges — ask on WhatsApp if you need something sooner.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">How do I pay?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Payment details are shared directly on WhatsApp once your order is confirmed. Please note: we don't offer payment on delivery — payment confirmation is required before your order ships.</p>
+        </details>
+
+      </div>
+    </div>
+
+    <div>
+      <h2 class="font-display text-2xl mb-4 text-forest dark:text-emerald">Sizing & Care</h2>
+      <div class="space-y-3">
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">How do I know my size?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Check our <a href="size-guide.html" class="underline text-forest dark:text-emerald">Size Guide</a> for how to measure your foot at home. If you're still unsure, choose "not sure yet" at checkout and we'll help confirm your size on WhatsApp before production starts. Please note sizes above EU 45 may attract an extra charge.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">What if I ordered the wrong size?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Because every pair is handmade to the size you provide, errors from an incorrect size or fitting submitted by the customer can't be corrected or refunded after production. That's why we always recommend confirming your size with us on WhatsApp before you order.</p>
+        </details>
+
+        <details class="faq-item bg-white dark:bg-white/[0.04] border border-ink/5 dark:border-cream/10 rounded-xl px-5 py-4">
+          <summary class="flex items-center justify-between font-semibold text-[15px]">How do I care for leather and suede shoes?
+            <svg class="chev transition-transform flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="text-ink/70 dark:text-cream/70 text-[14.5px] mt-3 leading-relaxed">Keep leather pairs away from prolonged water exposure and wipe clean with a soft, slightly damp cloth. For suede, use a suede brush to lift dirt rather than water. Store both away from direct sunlight, and let a leather conditioner or polish keep the material supple over time.</p>
+        </details>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================= CONTACT CTA ============================= -->
+<section class="py-14 md:py-16 bg-forest/[0.04] dark:bg-cream/[0.02] border-t border-ink/10 dark:border-cream/10">
+  <div class="max-w-2xl mx-auto px-5 md:px-8 text-center">
+    <h2 class="font-display text-2xl">Still have a question?</h2>
+    <p class="text-ink/60 dark:text-cream/60 mt-2 text-[14.5px]">We're happy to help directly on WhatsApp — 8:00am to 9:00pm daily.</p>
+    <a href="https://wa.me/2348130494559?text=Hi%20OZ%2C%20I%20have%20a%20question." target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 bg-emerald hover:bg-forest text-cream font-semibold px-7 py-3.5 rounded-full transition-colors mt-6">
+      Chat on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="bg-ink text-cream pt-16 pb-8 border-t border-cream/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-cream/50">
+      <p>&copy; <span id="year"></span> OZ Handcrafted Footwear. All rights reserved.</p>
+      <a href="https://wa.me/2348130494559" target="_blank" rel="noopener" class="hover:text-cream transition-colors">+234 813 049 4559</a>
+    </div>
+  </div>
+</footer>
+
+<script>const ASSET_BASE = "";</script>
+<script src="assets/js/store.js"></script>
+<script>
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  const root = document.documentElement;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { root.classList.add('dark'); }
+  document.getElementById('themeToggle').addEventListener('click', () => root.classList.toggle('dark'));
+
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
