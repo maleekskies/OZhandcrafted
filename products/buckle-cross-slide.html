@@ -177,6 +177,7 @@
         <!-- Colour -->
         <div>
           <h2 class="font-display text-lg mb-3">Colour</h2>
+          <p class="text-ink/60 dark:text-cream/60 text-[13px] mb-3 leading-relaxed">Every pair is handmade to order, so you're not limited to the colour pictured. Pick any of the options below and we'll craft yours to match.</p>
           <div id="colourGroup" class="flex flex-wrap gap-3"></div>
         </div>
 
@@ -326,9 +327,10 @@
     });
   });
 
-  // colour pills
+  // colour pills (6 available colours; every pair is handmade to order)
   const colourGroup = document.getElementById('colourGroup');
-  COLOURS.forEach((c, i) => {
+  const colourList = ozColourOptions(ozFindProduct(PRODUCT_ID)) || COLOURS;
+  colourList.forEach((c, i) => {
     const label = document.createElement('label');
     label.className = 'pill-option relative text-center border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 font-medium text-[13.5px]' + (i === 0 ? ' selected' : '');
     label.innerHTML = `<input type="radio" name="colour" value="${c}" ${i === 0 ? 'checked' : ''}> ${c}`;

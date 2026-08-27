@@ -112,6 +112,14 @@
   .filter-btn.active { background-color: #15130F; color: #F7F2E7; }
   html.dark .filter-btn.active { background-color: #F7F2E7; color: #15130F; }
 
+  /* custom dropdowns (type / colour / sort filters) */
+  .dropdown-option { display: block; width: 100%; text-align: left; padding: 8px 16px; font-size: 13px; color: #15130F; transition: background-color .15s ease; white-space: nowrap; }
+  html.dark .dropdown-option { color: #F7F2E7; }
+  .dropdown-option:hover { background-color: rgba(26,143,60,0.1); }
+  .dropdown-option.active { background-color: #15130F; color: #F7F2E7; }
+  html.dark .dropdown-option.active { background-color: #F7F2E7; color: #15130F; }
+  .custom-dropdown.open .dropdown-chevron { transform: rotate(180deg); }
+
   /* theme toggle icon swap */
   .theme-icon-dark { display: none; }
   html.dark .theme-icon-light { display: none; }
@@ -293,23 +301,32 @@
 
       <span class="w-px h-6 bg-ink/10 dark:bg-cream/10 mx-1 hidden sm:block"></span>
 
-      <select id="typeFilter" class="bg-white dark:bg-white/5 border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-emerald">
-        <option value="all">All Types</option>
-      </select>
-      <select id="colourFilter" class="bg-white dark:bg-white/5 border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-emerald">
-        <option value="all">All Colours</option>
-      </select>
-      <select id="sortSelect" class="bg-white dark:bg-white/5 border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-emerald ml-auto">
-        <option value="featured">Sort: Featured</option>
-        <option value="newest">Sort: Newest</option>
-        <option value="price-low">Sort: Price, Low to High</option>
-        <option value="price-high">Sort: Price, High to Low</option>
-      </select>
+      <div class="custom-dropdown relative" data-dropdown="type">
+        <button type="button" class="dropdown-trigger inline-flex items-center gap-2 bg-white dark:bg-[#1C1A15] border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium hover:border-emerald transition-colors">
+          <span data-dropdown-label>All Types</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-chevron transition-transform"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-panel hidden absolute left-0 top-full mt-2 min-w-[180px] bg-white dark:bg-[#1C1A15] border border-ink/10 dark:border-cream/15 rounded-xl shadow-xl py-1.5 z-20"></div>
+      </div>
+
+      <div class="custom-dropdown relative" data-dropdown="colour">
+        <button type="button" class="dropdown-trigger inline-flex items-center gap-2 bg-white dark:bg-[#1C1A15] border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium hover:border-emerald transition-colors">
+          <span data-dropdown-label>All Colours</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-chevron transition-transform"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-panel hidden absolute left-0 top-full mt-2 min-w-[180px] max-h-64 overflow-y-auto bg-white dark:bg-[#1C1A15] border border-ink/10 dark:border-cream/15 rounded-xl shadow-xl py-1.5 z-20"></div>
+      </div>
+
+      <div class="custom-dropdown relative ml-auto" data-dropdown="sort">
+        <button type="button" class="dropdown-trigger inline-flex items-center gap-2 bg-white dark:bg-[#1C1A15] border border-ink/15 dark:border-cream/20 rounded-full px-4 py-2 text-[13px] font-medium hover:border-emerald transition-colors">
+          <span data-dropdown-label>Sort: Featured</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-chevron transition-transform"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-panel hidden absolute right-0 top-full mt-2 min-w-[200px] bg-white dark:bg-[#1C1A15] border border-ink/10 dark:border-cream/15 rounded-xl shadow-xl py-1.5 z-20"></div>
+      </div>
     </div>
 
-    <p id="resultsCount" class="text-[13px] text-ink/50 dark:text-cream/50 mt-4 reveal"></p>
 
-    <!-- grid -->
     <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
       <!-- Cards injected by JS from PRODUCTS_CATALOG -->
     </div>
@@ -521,36 +538,6 @@
   </div>
 </section>
 
-<!-- ============================= PRODUCT PHOTO GALLERY (multi-angle) ============================= -->
-<div id="galleryModal" class="fixed inset-0 z-[80] hidden">
-  <div id="galleryOverlay" class="absolute inset-0 bg-ink/90 backdrop-blur-sm"></div>
-  <div class="relative h-full flex flex-col items-center justify-center p-4 sm:p-8">
-    <div class="flex items-center justify-between w-full max-w-2xl mb-4 px-1">
-      <div>
-        <h3 id="galleryTitle" class="font-display text-cream text-lg sm:text-xl"></h3>
-        <p id="galleryCounter" class="text-cream/60 text-[13px] mt-0.5"></p>
-      </div>
-      <button id="galleryClose" aria-label="Close" class="w-10 h-10 rounded-full hover:bg-cream/10 flex items-center justify-center text-cream flex-shrink-0">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-
-    <div class="relative w-full max-w-2xl flex-1 min-h-0 flex items-center justify-center">
-      <button id="galleryPrevBtn" aria-label="Previous photo"
-              class="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center text-cream z-10">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <img id="galleryImg" src="" alt="" class="max-h-[65vh] max-w-full rounded-2xl shadow-2xl object-contain">
-      <button id="galleryNextBtn" aria-label="Next photo"
-              class="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 hover:bg-cream/20 flex items-center justify-center text-cream z-10">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-
-    <div id="galleryDots" class="flex items-center gap-2 mt-5"></div>
-  </div>
-</div>
-
 <!-- ============================= REVIEWS MODAL ============================= -->
 <div id="reviewsModal" class="fixed inset-0 z-[70] hidden">
   <div id="reviewsModalOverlay" class="absolute inset-0 bg-ink/80 backdrop-blur-sm"></div>
@@ -730,22 +717,59 @@
 
   // ---- Product data (from shared assets/js/store.js: PRODUCTS_CATALOG) ----
 
-  // populate type + colour filter dropdowns from the catalog
-  const typeFilter = document.getElementById('typeFilter');
-  const colourFilter = document.getElementById('colourFilter');
   const typeLabels = { sandal: 'Sandal / Slide', loafer: 'Loafer', derby: 'Derby' };
-  [...new Set(PRODUCTS_CATALOG.map(p => p.type))].sort().forEach(t => {
-    const o = document.createElement('option');
-    o.value = t; o.textContent = typeLabels[t] || t;
-    typeFilter.appendChild(o);
-  });
-  [...new Set(PRODUCTS_CATALOG.flatMap(p => p.colours))].sort().forEach(c => {
-    const o = document.createElement('option');
-    o.value = c; o.textContent = c;
-    colourFilter.appendChild(o);
-  });
+  const typeOptions = [{ value: 'all', label: 'All Types' }, ...[...new Set(PRODUCTS_CATALOG.map(p => p.type))].sort().map(t => ({ value: t, label: typeLabels[t] || t }))];
+  const colourOptions = [{ value: 'all', label: 'All Colours' }, ...[...new Set(PRODUCTS_CATALOG.flatMap(p => p.colours))].sort().map(c => ({ value: c, label: c }))];
+  const sortOptions = [
+    { value: 'featured', label: 'Sort: Featured' },
+    { value: 'newest', label: 'Sort: Newest' },
+    { value: 'price-low', label: 'Sort: Price, Low to High' },
+    { value: 'price-high', label: 'Sort: Price, High to Low' },
+  ];
 
   const state = { gender: 'all', search: '', type: 'all', colour: 'all', sort: 'featured' };
+
+  // ---- Custom dropdowns (type / colour / sort) ----
+  function initDropdown(name, options, onChange) {
+    const root = document.querySelector(`[data-dropdown="${name}"]`);
+    const trigger = root.querySelector('.dropdown-trigger');
+    const label = root.querySelector('[data-dropdown-label]');
+    const panel = root.querySelector('.dropdown-panel');
+
+    panel.innerHTML = options.map(opt =>
+      `<button type="button" class="dropdown-option${opt.value === 'all' || (name === 'sort' && opt.value === 'featured') ? ' active' : ''}" data-value="${opt.value}">${opt.label}</button>`
+    ).join('');
+
+    function closePanel() { panel.classList.add('hidden'); root.classList.remove('open'); }
+    function openPanel() {
+      document.querySelectorAll('.dropdown-panel').forEach(p => { if (p !== panel) { p.classList.add('hidden'); p.closest('.custom-dropdown').classList.remove('open'); } });
+      panel.classList.remove('hidden'); root.classList.add('open');
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      panel.classList.contains('hidden') ? openPanel() : closePanel();
+    });
+
+    panel.querySelectorAll('.dropdown-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        panel.querySelectorAll('.dropdown-option').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        label.textContent = btn.textContent;
+        closePanel();
+        onChange(btn.dataset.value);
+      });
+    });
+  }
+
+  initDropdown('type', typeOptions, (val) => { state.type = val; renderProducts(); });
+  initDropdown('colour', colourOptions, (val) => { state.colour = val; renderProducts(); });
+  initDropdown('sort', sortOptions, (val) => { state.sort = val; renderProducts(); });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('open'));
+  });
 
   function getFilteredProducts() {
     let list = PRODUCTS_CATALOG.filter(p => {
@@ -767,14 +791,13 @@
   }
 
   function productCardHTML(p, i, withDelay) {
-    const orderUrl = `products/${p.id}.html`;
+    const productUrl = `products/${p.id}.html`;
     const genderLabel = p.cat === 'men' ? 'Men' : p.cat === 'women' ? 'Women' : 'Unisex';
     const wished = ozIsWished(p.id);
     return `
-      <div class="reveal in card-lift bg-white dark:bg-white/[0.04] rounded-2xl overflow-hidden border border-ink/5 dark:border-cream/10 shadow-sm" ${withDelay ? `style="transition-delay:${i * 0.04}s"` : ''}>
-        <div class="relative">
-          <button type="button" data-gallery-id="${p.id}"
-                  class="product-photo-trigger relative block w-full aspect-[4/3] bg-ink overflow-hidden group">
+      <div class="relative reveal in card-lift bg-white dark:bg-white/[0.04] rounded-2xl overflow-hidden border border-ink/5 dark:border-cream/10 shadow-sm" ${withDelay ? `style="transition-delay:${i * 0.04}s"` : ''}>
+        <a href="${productUrl}" class="block">
+          <div class="relative aspect-[4/3] bg-ink overflow-hidden group">
             <img src="${ozProductImg(p)}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <span class="absolute top-3 left-3 text-[10px] uppercase tracking-wider font-semibold bg-cream/90 text-ink px-2.5 py-1 rounded-full">New</span>
             ${p.images.length > 1 ? `
@@ -783,38 +806,29 @@
                 ${p.images.length} photos
               </span>` : ``}
             <span class="absolute bottom-3 left-3 text-[10px] uppercase tracking-wider font-semibold bg-ink/60 text-cream px-2.5 py-1 rounded-full">${genderLabel}</span>
-          </button>
-          <button type="button" data-wish="${p.id}" aria-label="Save"
-                  class="wish-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-cream/90 flex items-center justify-center hover:scale-105 transition-transform">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="${wished ? '#C9A227' : 'none'}" stroke="${wished ? '#C9A227' : '#15130F'}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-          </button>
-        </div>
-        <div class="p-5">
-          <h3 class="font-display text-[17px] leading-snug">${p.name}</h3>
-          <p class="text-ink/50 dark:text-cream/50 text-[12.5px] mt-1">${p.colours.join(' / ')}</p>
-          <p class="text-forest dark:text-emerald font-semibold mt-2 text-[15px]">${priceDisplay(p)}${p.priceNote ? `<span class="text-ink/40 dark:text-cream/40 font-normal text-[12px]"> · ${p.priceNote}</span>` : ``}</p>
-          <a href="${orderUrl}"
-             class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-ink hover:bg-forest dark:bg-cream dark:text-ink dark:hover:bg-gold text-cream text-[13px] font-semibold px-4 py-2.5 rounded-full transition-colors">
-            Order
-          </a>
-        </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-[17px] leading-snug">${p.name}</h3>
+            <p class="text-ink/50 dark:text-cream/50 text-[12.5px] mt-1">${p.colours.join(' / ')}</p>
+            <p class="text-forest dark:text-emerald font-semibold mt-2 text-[15px]">${priceDisplay(p)}${p.priceNote ? `<span class="text-ink/40 dark:text-cream/40 font-normal text-[12px]"> · ${p.priceNote}</span>` : ``}</p>
+          </div>
+        </a>
+        <button type="button" data-wish="${p.id}" aria-label="Save"
+                class="wish-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-cream/90 flex items-center justify-center hover:scale-105 transition-transform z-10">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="${wished ? '#C9A227' : 'none'}" stroke="${wished ? '#C9A227' : '#15130F'}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        </button>
       </div>`;
   }
 
   function renderProducts() {
     const grid = document.getElementById('productGrid');
     const noResults = document.getElementById('noResults');
-    const resultsCount = document.getElementById('resultsCount');
     const list = getFilteredProducts();
 
     grid.innerHTML = list.map((p, i) => productCardHTML(p, i, true)).join('');
     noResults.classList.toggle('hidden', list.length > 0);
     grid.classList.toggle('hidden', list.length === 0);
-    resultsCount.textContent = `${list.length} ${list.length === 1 ? 'style' : 'styles'}`;
 
-    document.querySelectorAll('.product-photo-trigger').forEach(btn => {
-      btn.addEventListener('click', () => openGallery(btn.dataset.galleryId));
-    });
     document.querySelectorAll('.wish-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         ozToggleWishlist(btn.dataset.wish);
@@ -833,9 +847,6 @@
     });
   });
   document.getElementById('productSearch').addEventListener('input', (e) => { state.search = e.target.value; renderProducts(); });
-  typeFilter.addEventListener('change', (e) => { state.type = e.target.value; renderProducts(); });
-  colourFilter.addEventListener('change', (e) => { state.colour = e.target.value; renderProducts(); });
-  document.getElementById('sortSelect').addEventListener('change', (e) => { state.sort = e.target.value; renderProducts(); });
 
   // ---- Recently viewed ----
   function renderRecentlyViewed() {
@@ -850,54 +861,6 @@
       </a>`).join('');
   }
   renderRecentlyViewed();
-
-  // ---- Product photo gallery (multi-angle lightbox) ----
-  const galleryModal = document.getElementById('galleryModal');
-  const galleryImg = document.getElementById('galleryImg');
-  const galleryCounter = document.getElementById('galleryCounter');
-  const galleryTitle = document.getElementById('galleryTitle');
-  const galleryDots = document.getElementById('galleryDots');
-  let galleryImages = [];
-  let galleryIndex = 0;
-
-  function renderGalleryFrame() {
-    galleryImg.src = galleryImages[galleryIndex];
-    galleryCounter.textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
-    galleryDots.innerHTML = galleryImages.map((_, i) =>
-      `<button data-i="${i}" class="w-2 h-2 rounded-full transition-colors ${i === galleryIndex ? 'bg-cream' : 'bg-cream/30'}"></button>`
-    ).join('');
-    galleryDots.querySelectorAll('button').forEach(dot => {
-      dot.addEventListener('click', () => { galleryIndex = parseInt(dot.dataset.i, 10); renderGalleryFrame(); });
-    });
-  }
-
-  function openGallery(productId) {
-    const p = ozFindProduct(productId);
-    if (!p) return;
-    galleryImages = p.images.map(img => ozAsset("assets/products/" + img));
-    galleryIndex = 0;
-    galleryTitle.textContent = p.name;
-    renderGalleryFrame();
-    galleryModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeGallery() {
-    galleryModal.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-  function galleryNext() { galleryIndex = (galleryIndex + 1) % galleryImages.length; renderGalleryFrame(); }
-  function galleryPrev() { galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length; renderGalleryFrame(); }
-
-  document.getElementById('galleryClose').addEventListener('click', closeGallery);
-  document.getElementById('galleryOverlay').addEventListener('click', closeGallery);
-  document.getElementById('galleryNextBtn').addEventListener('click', galleryNext);
-  document.getElementById('galleryPrevBtn').addEventListener('click', galleryPrev);
-  document.addEventListener('keydown', (e) => {
-    if (galleryModal.classList.contains('hidden')) return;
-    if (e.key === 'Escape') closeGallery();
-    if (e.key === 'ArrowRight') galleryNext();
-    if (e.key === 'ArrowLeft') galleryPrev();
-  });
 
   // theme toggle (defaults to system preference; no persistence used)
   const root = document.documentElement;

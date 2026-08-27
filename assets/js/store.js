@@ -108,6 +108,29 @@ function ozProductImg(p) { return ozAsset("assets/products/" + p.images[0]); }
 function ozProductUrl(p) { return ozAsset("products/" + p.id + ".html"); }
 function ozFindProduct(id) { return PRODUCTS_CATALOG.find(p => p.id === id); }
 
+/* ---------------- Colour options ----------------
+   Every OZ pair is handmade to order, so a customer isn't limited to
+   whatever colour happens to be in the product photo. This builds a set
+   of 6 available colours per product: the pictured colour(s) first, then
+   filled out with the rest of a palette suited to that product's category. */
+const COLOUR_PALETTES = {
+  men: ["Black", "Brown", "Tan", "Wine", "Navy", "Grey"],
+  women: ["Black", "Nude", "Fuchsia", "Tan", "Gold", "White"],
+  unisex: ["Black", "Brown", "Tan", "Navy", "Grey", "Wine"],
+};
+function ozColourOptions(p) {
+  const palette = COLOUR_PALETTES[p.cat] || COLOUR_PALETTES.unisex;
+  const combined = [...p.colours, ...palette];
+  const seen = new Set();
+  const result = [];
+  for (const c of combined) {
+    const key = c.toLowerCase();
+    if (!seen.has(key)) { seen.add(key); result.push(c); }
+    if (result.length === 6) break;
+  }
+  return result;
+}
+
 /* ---------------- Safe storage wrapper ----------------
    Falls back to an in-memory object if localStorage is blocked
    (e.g. some preview/sandbox contexts) so the page never breaks —
